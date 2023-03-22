@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if page == "register" %}
+<div class="col d-flex justify-content-center">
+  <div class="col-sm-6">
+  <div class="card shadow-2-strong" style="border-radius: 1rem;">
+  <div class="card-body p-5">
+<h1>Register User</h1>
+<form action="{% url 'register' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Register user">
+</form>
+<p>Already have an account? <a href="{% url 'login_page' %}">Log in!</a></p>
+</div>
+</div>
+</div>
+</div>
+{% else %}
+<div class="col d-flex justify-content-center">
+<div class="col-sm-6">
+<div class="card shadow-2-strong" style="border-radius: 1rem;">
+<div class="card-body p-5 text-center">
+    <form action="{% url 'login_page' %}" method="POST">
+      {% csrf_token %}
+      <div class="form-outline mb-4">
+        <input type="text" name="username" placeholder="Username" class="form-control">
+      </div>
+      <div class="form-outline mb-4">
+      <input type="password" name="password" placeholder="Password" class="form-control">
+    </div>
+      <button type="submit" class="btn btn-primary btn-block mb-4">Log In</button>
+    </form>  
+
+    <p>Don't have an account? <a href="{% url 'register' %}">Sign up!</a></p>
+  </div>
+</div>
+</div>
+</div>
+{% endif %}
+
+  {% endblock content %}

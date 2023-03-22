@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This indeed is the base HTML template</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+        <h1 class="navbar-brand">Bug Tracker</h1>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link link-light" href="{% url 'ticket_page' %}">Submit New Ticket</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link link-light" href="{% url 'user_tickets' %}">My Tickets</a>
+        </li>
+        {% if request.user.is_authenticated %}<li class="nav-item">
+            <a class="nav-link link-light" href="{% url 'logout' %}">Log out</a>
+        </li>
+        {% else %}<li class="nav-item">
+            <a class="nav-link link-light" href="{% url 'login_page' %}">Log in</a>
+        </li>{% endif %}
+        
+</ul>
+<span class="navbar-text">
+    Hello {{user}}
+  </span>
+</div>
+</nav>
+
+    {% if messages %}
+    <div class="alert alert-info" role="alert">
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+    {% endif %}
+    {% block content %}
+
+    {% endblock content %}
+</body>
+</html>
