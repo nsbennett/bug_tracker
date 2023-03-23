@@ -23,8 +23,7 @@ TEMPLATE_DIR = Path(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'p0z($9)p8)91nn$bn!2$phu(f#%5lv(ka1b@1iz=4q#)no@c*='
-# SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -100,10 +99,10 @@ WSGI_APPLICATION = 'bug_tracker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd42sl5l4fdfemp',
-        'USER': 'pmqpagmehdbcla',
-        'PASSWORD': '7c1a871d4307a0bd595b46d82780fb6dc565f2195db134fc445c98fb46361202',
-        'HOST': 'ec2-3-208-74-199.compute-1.amazonaws.com',
+        'NAME': os.environ["DATABASE"],
+        'USER': os.environ["USER"],
+        'PASSWORD': os.environ["PASSWORD"],
+        'HOST': os.environ["HOST_NAME"],
         'PORT': '5432',
     }
 }
