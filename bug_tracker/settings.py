@@ -100,10 +100,10 @@ WSGI_APPLICATION = 'bug_tracker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '<DATABASE>',
-        'USER': '<USER>',
-        'PASSWORD': '<PASSWORD>',
-        'HOST': '<HOST>',
+        'NAME': 'd42sl5l4fdfemp',
+        'USER': 'pmqpagmehdbcla',
+        'PASSWORD': '7c1a871d4307a0bd595b46d82780fb6dc565f2195db134fc445c98fb46361202',
+        'HOST': 'ec2-3-208-74-199.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
