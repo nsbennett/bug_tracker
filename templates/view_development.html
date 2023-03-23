@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for ticket in tickets %}
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ ticket.message_subject }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{ ticket.timestamp }}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">{{ ticket.issue_category }}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">{{ ticket.ticket_author }}</h6>
+      <p class="card-text">{{ ticket.message_body }}</p>
+      <a href="{% url 'view_dev_detail' ticket.pk %}" class="card-link">View Ticket</a>
+    </div>
+  </div>
+
+{% empty %}
+<p>No replies yet</p>
+{% endfor %}
+
+{% endblock content %}

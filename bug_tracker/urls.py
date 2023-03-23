@@ -17,15 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import render
 from base_app.forms import TicketForm
-from base_app.views import view_home
+from base_app.views import view_home, view_development, view_dev_detail
 # submit_comment
 
-def ticket_page(request):
-    return render(request, 'submit_ticket.html')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', view_home, name="home"),
+    path('view_development', view_development, name="view_development"),
+    path('view_development/<str:pk>', view_dev_detail, name="view_dev_detail"),
     path('', include('base_app.urls')),
     path('', include('users.urls')),
 ]

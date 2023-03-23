@@ -9,8 +9,6 @@ from .models import CreateTicket, TicketComment
 from django.views import View
 from django.contrib.auth.decorators import login_required, permission_required
 
-# from users.models import Profile
-
 # Create your views here.
 
 def view_home(request):
@@ -70,7 +68,6 @@ def registerUser(request):
     return render(request, 'login_register.html', context)
 
 @login_required(login_url="login_page")
-# @permission_required("base_app.add_create_ticket", login_url="login_page")
 def submit_ticket(request):
     """Take user input from ticket submission and save to database"""
     ticket_form = TicketForm(request.POST)
@@ -80,10 +77,7 @@ def submit_ticket(request):
         if ticket_form.is_valid():
             submission = ticket_form.save(commit=False)
             submission.ticket_author = request.user
-            # ticket_form = TicketForm()
             submission.save()
-            # ticket_status = TicketClosed(ticket_reference=submission, ticket_status="OPEN")
-            # ticket_status.save()
             messages.success(request, ("Done!"))
             return redirect('user_tickets')
         else:
@@ -93,40 +87,29 @@ def submit_ticket(request):
     return render(request, "submit_ticket.html", context)
 
 @login_required(login_url="login_page")
-# @permission_required("base_app.view_view_tickets", login_url="login_page")
 def view_tickets(request):
     """Show submitted tickets"""
     user = request.user
     
     if user.is_staff == True:
         tickets = CreateTicket.objects.all()
-    #     for ticket in tickets:
-    #         ticket_status = TicketClosed.objects.filter(ticket.entry_id)
 
     else:
         tickets = CreateTicket.objects.filter(ticket_author=request.user.id)
-    #     for ticket in tickets:
-    #         ticket_status = TicketClosed.objects.filter(ticket.entry_id)
 
-
-    # ticket_status = TicketClosed.objects.all().values()
 
     context = {
         "tickets": tickets,
-        # "ticket_status": ticket_status,
     }
     return render(request, "view_tickets.html", context)
 
 
 
 @login_required(login_url="login_page")
-# @permission_required("base_app.view_ticket_comment", login_url="login_page")
 def ticket_detailed_view(request, pk):
     ticket = CreateTicket.objects.get(entry_id=pk)
     comments = TicketComment.objects.filter(ticket=pk)
     comment_form = CommentForm()
-    # ticket_status = TicketClosed.objects.get(ticket_reference=pk)
-    # ticket_status_form = TicketClosingForm()
 
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
@@ -142,29 +125,30 @@ def ticket_detailed_view(request, pk):
         else:
             comment_form = CommentForm()
 
-    # if request.method == "POST":
-    #     ticket_status_form = TicketClosingForm(request.POST)
-
-    #     if ticket_status_form.is_valid():
-    #         obj = ticket_status_form.save(commit=False)
-            # ticket_status = obj
-            # obj.ticket_reference = ticket
-            # ticket_status.save()
-        #     ticket_status.ticket_status = obj.ticket_status
-        #     ticket_status.save()
-        #     messages.success(request, ("Done!"))
-        #     return redirect('ticket_detail', pk)
-            
-        # else:
-        #     ticket_status_form = TicketClosingForm()
-
     context = {
         "ticket": ticket,
         "comment_form": comment_form,
         "comments": comments,
-        # "ticket_status": ticket_status,
-        # "ticket_status_form": ticket_status_form,
     }
 
     return render(request, "view_single_ticket.html", context)
 
+def view_development(request):
+    tickets = CreateTicket.objects.filter(ticket_author=9)
+
+    context = {
+        "tickets": tickets,
+    }
+    return render(request, "view_development.html", context)
+
+
+def view_dev_detail(request, pk):
+    ticket = CreateTicket.objects.get(entry_id=pk)
+    comments = TicketComment.objects.filter(ticket=pk)
+
+    context = {
+        "ticket": ticket,
+        "comments": comments,
+    }
+
+    return render(request, "view_dev_details.html", context)
