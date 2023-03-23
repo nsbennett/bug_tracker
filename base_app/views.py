@@ -13,6 +13,9 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 
+def view_home(request):
+    return render(request, 'home.html')
+
 def loginPage(request):
     page = "login"
 

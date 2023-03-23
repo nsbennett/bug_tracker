@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">Nathan's Bug Tracker</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">In one portal: log an issue, learn how it's going, get notified when it's done.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Primary button</button>
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="b-example-divider"></div>
+
+  <div class="container px-4 py-5" id="featured-3">
+    <h2 class="pb-2 border-bottom">How it works</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+      <div class="feature col">
+        <div class="feature-icon bg-primary bg-gradient">
+        </div>
+        <h2>1. Register, log in, and post your issue</h2>
+        <p>In your very own account, you can submit a support ticket. Keep track of your support tickets in your own private account.</p>
+      </div>
+      <div class="feature col">
+        <div class="feature-icon bg-primary bg-gradient">
+        </div>
+        <h2>2. Communicate with support staff</h2>
+        <p>Click on each support ticket record you've submitted to see replies by support staff. You can communicate with them by reply comments.</p>
+      </div>
+      <div class="feature col">
+        <div class="feature-icon bg-primary bg-gradient">
+          <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+        </div>
+        <h2>3. Find out when it's done</h2>
+        <p>Support staff will see all tickets submitted, so they'll be able to work with all the information all users have submitted. Watch for the reply comment letting you know it's all taken care of!</p>
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock content %}

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import render
 from base_app.forms import TicketForm
-# from base_app.views import submit_ticket, view_tickets, ticket_detailed_view, loginPage, logoutPage, registerUser
+from base_app.views import view_home
 # submit_comment
 
 def ticket_page(request):
@@ -25,6 +25,7 @@ def ticket_page(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', view_home, name="home"),
     path('', include('base_app.urls')),
     path('', include('users.urls')),
 ]
