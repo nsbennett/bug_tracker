@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import CreateTicket, TicketComment
 from django.views import View
 from django.contrib.auth.decorators import login_required, permission_required
-import uuid
+
 # from users.models import Profile
 
 # Create your views here.

@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 class CreateTicket(models.Model):
     """Create a ticket for support personnel to review"""
     # Need foreign key for user who posts it
-    ticket_author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    ticket_author = models.ForeignKey(User, on_delete=models.CASCADE, default=4)
     entry_id = models.UUIDField(
          primary_key = True,
          default = uuid.uuid4,
