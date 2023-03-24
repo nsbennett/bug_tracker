@@ -13,7 +13,7 @@
 
 
 
-<div class="mb-3">
+<div class="container w-50 p-3">
   <label for="comment_form_element" class="form-label">Reply to ticket:</label>
   <form class="container form-control" method="POST" action="{% url 'ticket_detail' ticket.pk %}" id="comment_form_element">
     {% csrf_token %}
