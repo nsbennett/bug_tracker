@@ -15,7 +15,7 @@
 
 <div class="mb-3">
   <label for="comment_form_element" class="form-label">Reply to ticket:</label>
-  <form class="form-control" method="POST" action="{% url 'ticket_detail' ticket.pk %}" id="comment_form_element">
+  <form class="container form-control" method="POST" action="{% url 'ticket_detail' ticket.pk %}" id="comment_form_element">
     {% csrf_token %}
     {{ comment_form.as_p }}
     
@@ -23,7 +23,7 @@
 </form>  
 
 {% for comment in comments %}
-<div class="card w-50 p-3">
+<div class="container card w-50 p-3">
   <div class="card-body">
     <h5 class="card-title">Response by: {{ comment.comment_author }}</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{ comment.timestamp }}</h6>
