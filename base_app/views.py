@@ -78,6 +78,8 @@ def submit_ticket(request):
             submission = ticket_form.save(commit=False)
             submission.ticket_author = request.user
             submission.save()
+            # ticket_status = TicketClosed(ticket_reference=submission)
+            # ticket_status.save()
             messages.success(request, ("Done!"))
             return redirect('user_tickets')
         else:
@@ -98,8 +100,14 @@ def view_tickets(request):
         tickets = CreateTicket.objects.filter(ticket_author=request.user.id)
 
 
+    # if user.is_staff == True:
+    #     ticket_statuses = TicketClosed.objects.all()
+    # else:
+    #     ticket_statuses = TicketClosed.objects.filter()
+
     context = {
         "tickets": tickets,
+        # "ticket_statuses": ticket_statuses,
     }
     return render(request, "view_tickets.html", context)
 
@@ -110,6 +118,15 @@ def ticket_detailed_view(request, pk):
     ticket = CreateTicket.objects.get(entry_id=pk)
     comments = TicketComment.objects.filter(ticket=pk)
     comment_form = CommentForm()
+    ticket_form = TicketForm(instance=ticket)
+    
+    if request.method == "POST":
+        ticket_form = TicketForm(request.POST, instance=ticket)
+
+        if ticket_form.is_valid():
+            ticket_form.save()
+            messages.success(request, ("Done!"))
+            return redirect('ticket_detail', pk)
 
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
@@ -127,11 +144,13 @@ def ticket_detailed_view(request, pk):
 
     context = {
         "ticket": ticket,
+        "ticket_form": ticket_form,
         "comment_form": comment_form,
         "comments": comments,
     }
 
     return render(request, "view_single_ticket.html", context)
+
 
 def view_development(request):
     tickets = CreateTicket.objects.filter(ticket_author=9)

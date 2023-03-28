@@ -1,8 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+{% if user.is_staff %}
+<div class="container w-50 p-3">
+  <label for="comment_form_element" class="form-label">Change status of ticket:</label>
+  <form class="container form-control" method="POST" action="{% url 'ticket_detail' ticket.pk %}" id="comment_form_element">
+    {% csrf_token %}
+    {{ ticket_form.as_p }}
+    
+    <button type="submit" class="btn btn-primary mb-3">Change status of ticket</button>
+</form>  
+</div>
+{% else %}
 <div class="container card w-50 p-3">
   <div class="card-body">
+    <h5 class="card-title">{{ ticket_status.ticket_status }}</h5>
     <h5 class="card-title">{{ ticket.message_subject }}</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{ ticket.timestamp }}</h6>
     <h6 class="card-subtitle mb-2 text-muted">{{ ticket.issue_category }}</h6>
@@ -11,8 +24,7 @@
   </div>
 </div>
 
-
-
+{% endif %}
 <div class="container w-50 p-3">
   <label for="comment_form_element" class="form-label">Reply to ticket:</label>
   <form class="container form-control" method="POST" action="{% url 'ticket_detail' ticket.pk %}" id="comment_form_element">

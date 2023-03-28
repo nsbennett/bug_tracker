@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 class TicketForm(ModelForm):
     class Meta:
         model = CreateTicket
-        fields = ["message_subject", "issue_category", "message_body"]
+        fields = ["ticket_status", "message_subject", "issue_category", "message_body"]
 
 
 class CommentForm(ModelForm):

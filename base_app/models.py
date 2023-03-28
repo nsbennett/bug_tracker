@@ -35,6 +35,24 @@ class CreateTicket(models.Model):
     """The dropdown menu"""
     issue_category = models.CharField("Issue Category", max_length=100, blank=False, choices=ISSUE_CHOICES, default=OTHER)
 
+
+    OPEN = "Open ticket"
+    UNDER_REVIEW = "Under review"
+    CLOSED = "Closed"
+
+    ticket_status_choices = [
+        (OPEN, "Open ticket"),
+        (UNDER_REVIEW, "Under review"),
+        (CLOSED, "Closed"),
+    ]
+
+    ticket_status = models.CharField("Ticket Status", max_length=100, blank=False, choices=ticket_status_choices, default=OPEN)
+
+
+
+
+
+
     class Meta:
         ordering = ("-timestamp",)
 
