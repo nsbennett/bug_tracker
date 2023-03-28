@@ -4,6 +4,13 @@
 
 <div class="container card w-50 p-3">
     <div class="card-body">
+      {% if ticket.ticket_status == "Open ticket" %}
+      <h5 class="card-title text-danger">{{ ticket_status.ticket_status }}</h5>
+      {% elif ticket.ticket_status == "Under review" %}
+      <h5 class="card-title text-warning">{{ ticket_status.ticket_status }}</h5>
+      {% elif ticket.ticket_status == "Closed" %}
+      <h5 class="card-title text-success">{{ ticket_status.ticket_status }}</h5>
+      {% endif %}
       <h5 class="card-title">{{ ticket.message_subject }}</h5>
       <h6 class="card-subtitle mb-2 text-muted">{{ ticket.timestamp }}</h6>
       <h6 class="card-subtitle mb-2 text-muted">{{ ticket.issue_category }}</h6>
