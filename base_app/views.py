@@ -12,14 +12,17 @@ from django.contrib.auth.decorators import login_required, permission_required
 # Create your views here.
 
 def view_home(request):
+    """Renders homepage"""
     return render(request, 'home.html')
 
 def loginPage(request):
+    """Renders login page"""
     page = "login"
 
     if request.user.is_authenticated:
         return redirect("user_tickets")
     
+    """Handles login"""
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -39,12 +42,14 @@ def loginPage(request):
 
     return render(request, 'login_register.html')
 
+"""Returns user to login page after logging out"""
 def logoutPage(request):
     logout(request)
     messages.success(request, "User successfully logged out.")
     return redirect("login_page")
 
 def registerUser(request):
+    """Registers user"""
     page = "register"
     form = UserCreationForm()
 
@@ -67,6 +72,7 @@ def registerUser(request):
                "form": form}
     return render(request, 'login_register.html', context)
 
+"""All attempts at inappropriate login redirected to login page to avoid showing error messages"""
 @login_required(login_url="login_page")
 def submit_ticket(request):
     """Take user input from ticket submission and save to database"""
