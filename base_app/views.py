@@ -96,7 +96,9 @@ def submit_ticket(request):
 
 @login_required(login_url="login_page")
 def view_tickets(request):
-    """Show submitted tickets"""
+    """Show submitted tickets. This is the default place for users to reach after logging in.
+    In absence of a user profile page, taking them directly to what they've done makes the most sense.
+    """
     user = request.user
     
     if user.is_staff == True:
@@ -118,9 +120,10 @@ def view_tickets(request):
     return render(request, "view_tickets.html", context)
 
 
-
+"""Redirect to login page to keep UX convenient"""
 @login_required(login_url="login_page")
 def ticket_detailed_view(request, pk):
+    """View comments on ticket, reply to additional responses"""
     ticket = CreateTicket.objects.get(entry_id=pk)
     comments = TicketComment.objects.filter(ticket=pk)
     comment_form = CommentForm()
@@ -159,6 +162,7 @@ def ticket_detailed_view(request, pk):
 
 
 def view_development(request):
+    """Provide a public-facing look at feature requests and completion status, no login required"""
     tickets = CreateTicket.objects.filter(ticket_author=9)
 
     context = {
@@ -168,6 +172,7 @@ def view_development(request):
 
 
 def view_dev_detail(request, pk):
+    """Extension of view of development, but for specific features"""
     ticket = CreateTicket.objects.get(entry_id=pk)
     comments = TicketComment.objects.filter(ticket=pk)
 
