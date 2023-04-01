@@ -182,3 +182,11 @@ def view_dev_detail(request, pk):
     }
 
     return render(request, "view_dev_details.html", context)
+
+
+@login_required(login_url="login_page")
+def userProfile(request):
+    context = {
+        "user": request.user,
+    }
+    return render(request, "profile_page.html", context)
