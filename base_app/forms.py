@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import CreateTicket, TicketComment
+from .models import CreateTicket, TicketComment, Profile
 from django.contrib.auth.forms import UserCreationForm
 # from users.models import Profile
 
@@ -17,14 +17,7 @@ class CommentForm(ModelForm):
         fields = ["comment"]
 
 
-# class TicketClosingForm(ModelForm):
-
-#     class Meta:
-#         model = TicketClosed
-#         fields = ["ticket_status"]
-
-# class ProfileCreationForm(UserCreationForm):
-
-#     class Meta:
-#         model = Profile
-#         fields = ["name", "user", "email", "password1", "password2"]
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('bio', 'location', 'birth_date', "slack", "discord", "email")

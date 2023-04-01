@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User, Group
 from django.urls import path, reverse
-from .forms import TicketForm, CommentForm
+from .forms import TicketForm, CommentForm, ProfileForm
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .models import CreateTicket, TicketComment
 from django.views import View
 from django.contrib.auth.decorators import login_required, permission_required
+from django.db import transaction
 
 # Create your views here.
 
@@ -183,8 +184,22 @@ def view_dev_detail(request, pk):
 
 
 @login_required(login_url="login_page")
+@transaction.atomic
 def userProfile(request):
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.success(request, ('Your profile was successfully updated!'))
+            return redirect("user_profile")
+        else:
+            messages.error(request, ('Please correct the error below.'))
+    else:
+        profile_form = ProfileForm(instance=request.user.profile)
+    
+    
     context = {
         "user": request.user,
+        "profile_form": profile_form,
     }
     return render(request, "profile_page.html", context)
