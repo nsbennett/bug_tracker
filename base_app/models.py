@@ -48,11 +48,6 @@ class CreateTicket(models.Model):
 
     ticket_status = models.CharField("Ticket Status", max_length=100, blank=False, choices=ticket_status_choices, default=OPEN)
 
-
-
-
-
-
     class Meta:
         ordering = ("-timestamp",)
 
@@ -77,20 +72,3 @@ class TicketComment(models.Model):
             return f"{str(self.comment)[:50]}..."
         else:
             return f"{str(self.comment)}"
-
-# class TicketClosed(models.Model):
-#     ticket_reference = models.OneToOneField(CreateTicket, on_delete=models.CASCADE)
-#     OPEN = "Open ticket"
-#     UNDER_REVIEW = "Under review"
-#     CLOSED = "Closed"
-
-#     ticket_status_choices = [
-#         (OPEN, "Open ticket"),
-#         (UNDER_REVIEW, "Under review"),
-#         (CLOSED, "Closed"),
-#     ]
-
-#     ticket_status = models.CharField("Ticket Status", max_length=100, blank=False, choices=ticket_status_choices, default=OPEN)
-
-#     def __str__(self):
-#         return self.ticket_status

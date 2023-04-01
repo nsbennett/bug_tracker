@@ -84,8 +84,6 @@ def submit_ticket(request):
             submission = ticket_form.save(commit=False)
             submission.ticket_author = request.user
             submission.save()
-            # ticket_status = TicketClosed(ticket_reference=submission)
-            # ticket_status.save()
             messages.success(request, ("Done!"))
             return redirect('user_tickets')
         else:
