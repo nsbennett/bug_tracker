@@ -107,14 +107,8 @@ def view_tickets(request):
         tickets = CreateTicket.objects.filter(ticket_author=request.user.id)
 
 
-    # if user.is_staff == True:
-    #     ticket_statuses = TicketClosed.objects.all()
-    # else:
-    #     ticket_statuses = TicketClosed.objects.filter()
-
     context = {
         "tickets": tickets,
-        # "ticket_statuses": ticket_statuses,
     }
     return render(request, "view_tickets.html", context)
 
