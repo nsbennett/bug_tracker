@@ -10,28 +10,8 @@ from django.views import View
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import transaction
 
-# importing Slack integration dependencies
-import logging
-logging.basicConfig(level=logging.DEBUG)
-
-import os
-from slack_sdk import WebClient
-from slack_sdk.errors import SlackApiError
-
 # Create your views here.
 
-# def post_to_slack(user, message):
-#     slack_token = os.environ["SLACK_BOT_TOKEN"]
-#     client = WebClient(token=slack_token)
-
-#     try:
-#         response = client.chat_postMessage(
-#             channel=os.environ["SLACK_CHANNEL_ID"], 
-#             text=f"Post by {user}: {message}")
-    
-#     except SlackApiError as e:
-#     # You will get a SlackApiError if "ok" is False
-#         assert e.response["error"]
 
 
 def view_home(request):
@@ -107,8 +87,6 @@ def submit_ticket(request):
             submission = ticket_form.save(commit=False)
             submission.ticket_author = request.user
             submission.save()
-            # if request.user.username == "development":
-            #     post_to_slack("development", submission)
             messages.success(request, ("Done!"))
             return redirect('user_tickets')
         else:
