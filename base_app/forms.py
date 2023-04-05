@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from .models import CreateTicket, TicketComment, Profile
 from django.contrib.auth.forms import UserCreationForm
-# from users.models import Profile
+
 
 class TicketForm(ModelForm):
     class Meta:
