@@ -9,10 +9,30 @@ from .models import CreateTicket, TicketComment
 from django.views import View
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import transaction
+import slack_sdk as s
+import os
+import requests
+import json
 
 # Create your views here.
+# def post_to_slack(message):
+#     client = s.WebClient(token=os.environ("SLACK_BOT_TOKEN"))
+#     client.chat_postMessage(channel=os.environ("SLACK_CHANNEL_ID"), text=message)
+#     webhook_url=os.environ("SLACK_WEBHOOK")
 
+def post_notification_to_slack(message):
+    webhook_url=os.environ["SLACK_WEBHOOK"]
+    slack_data = {'text': message}
 
+    response = requests.post(
+        webhook_url, data=json.dumps(slack_data),
+        headers={'Content-Type': 'application/json'}
+    )
+    if response.status_code != 200:
+        raise ValueError(
+            'Request to slack returned an error %s, the response is:\n%s'
+            % (response.status_code, response.text)
+        )
 
 def view_home(request):
     """Renders homepage"""
@@ -88,6 +108,7 @@ def submit_ticket(request):
             submission.ticket_author = request.user
             submission.save()
             messages.success(request, ("Done!"))
+            post_notification_to_slack("New ticket for review, support personnel please check")
             return redirect('user_tickets')
         else:
             messages.error(request, "Error!")
