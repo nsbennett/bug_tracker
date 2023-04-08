@@ -10,9 +10,13 @@ from django.views import View
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import transaction
 import slack_sdk as s
-import os
+import environ
 import requests
 import json
+
+env = environ.Env()
+environ.Env.read_env()
+
 
 # Create your views here.
 # def post_to_slack(message):
@@ -21,7 +25,7 @@ import json
 #     webhook_url=os.environ("SLACK_WEBHOOK")
 
 def post_notification_to_slack(message):
-    webhook_url=os.environ["SLACK_WEBHOOK"]
+    webhook_url=env("SLACK_WEBHOOK")
     slack_data = {'text': message}
 
     response = requests.post(
