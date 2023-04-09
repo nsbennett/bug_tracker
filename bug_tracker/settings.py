@@ -31,7 +31,7 @@ TEMPLATE_DIR = Path(BASE_DIR, 'templates')
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'https://nathanbugtracker.herokuapp.com/'
