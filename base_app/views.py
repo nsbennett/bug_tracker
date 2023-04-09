@@ -165,8 +165,8 @@ def ticket_detailed_view(request, pk):
             obj.ticket_id = pk
             obj.comment_author = request.user
             obj.save()
-            messages.success(request, ("Done!"))
             post_notification_to_slack("Comment added to ticket.")
+            messages.success(request, ("Done!"))
             return redirect('ticket_detail', pk)
             
         else:
