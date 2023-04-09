@@ -24,19 +24,19 @@ environ.Env.read_env()
 #     client.chat_postMessage(channel=os.environ("SLACK_CHANNEL_ID"), text=message)
 #     webhook_url=os.environ("SLACK_WEBHOOK")
 
-# def post_notification_to_slack(message):
-#     webhook_url=env("SLACK_WEBHOOK")
-#     slack_data = {'text': message}
+def post_notification_to_slack(message):
+    webhook_url=env("SLACK_WEBHOOK")
+    slack_data = {'text': message}
 
-#     response = requests.post(
-#         webhook_url, data=json.dumps(slack_data),
-#         headers={'Content-Type': 'application/json'}
-#     )
-#     if response.status_code != 200:
-#         raise ValueError(
-#             'Request to slack returned an error %s, the response is:\n%s'
-#             % (response.status_code, response.text)
-#         )
+    response = requests.post(
+        webhook_url, data=json.dumps(slack_data),
+        headers={'Content-Type': 'application/json'}
+    )
+    if response.status_code != 200:
+        raise ValueError(
+            'Request to slack returned an error %s, the response is:\n%s'
+            % (response.status_code, response.text)
+        )
 
 def view_home(request):
     """Renders homepage"""
@@ -112,7 +112,7 @@ def submit_ticket(request):
             submission.ticket_author = request.user
             submission.save()
             messages.success(request, ("Done!"))
-            # post_notification_to_slack("New ticket for review, support personnel please check")
+            post_notification_to_slack("New ticket for review, support personnel please check")
             return redirect('user_tickets')
         else:
             messages.error(request, "Error!")
