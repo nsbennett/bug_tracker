@@ -111,8 +111,17 @@ def submit_ticket(request):
             submission = ticket_form.save(commit=False)
             submission.ticket_author = request.user
             submission.save()
+            new_ticket = CreateTicket.objects.first()
             messages.success(request, ("Done!"))
-            post_notification_to_slack("New ticket for review, support personnel please check")
+            for_slack = f"""
+New ticket to review:
+Time submitted: {new_ticket.timestamp}
+Issue: {new_ticket.issue_category}
+
+Subject: {new_ticket.message_subject}
+Ticket: {new_ticket.message_body}
+            """
+            post_notification_to_slack(for_slack)
             return redirect('user_tickets')
         else:
             messages.error(request, "Error!")
