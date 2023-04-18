@@ -13,6 +13,7 @@ import slack_sdk as s
 import environ
 import requests
 import json
+from .pull_info import give_info
 
 env = environ.Env()
 environ.Env.read_env()
@@ -104,7 +105,8 @@ def registerUser(request):
 def submit_ticket(request):
     """Take user input from ticket submission and save to database"""
     ticket_form = TicketForm(request.POST)
-    context = {"ticket_form": ticket_form}
+    tech_info = give_info()
+    context = {"ticket_form": ticket_form, "tech_info": tech_info,}
     if request.method == "POST":
         
         if ticket_form.is_valid():

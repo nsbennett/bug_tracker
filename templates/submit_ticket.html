@@ -3,13 +3,31 @@
 {% block content %}
 
 <div class="container">
+  <div class="container card w-50 p-3">
+    <div class="card-body card text-white bg-secondary mb-3">
+  <p>Using weather data from the National Weather Service API as a "lorem ipsum" for technical data: you can copy technical information and submit it along with your ticket.</p>
+  </div>
+</div>
+  <button class="btn btn-secondary" onclick="CopyText()">Copy Tech Data to Clipboard</button>
+     <input style="text-align:center;" type="text-" value="{{ tech_info }}"id="yourtext">
     <form method="POST">
       {% csrf_token %}
       {{ ticket_form.as_p }}
+
       <input type="submit">
     </form>  
 
     
   </div>
+
+  {% block scripts %}
+  <script>
+    function CopyText() {
+    var text = document.getElementById('yourtext')
+    text.select();
+    document.execCommand('copy')
+  }
+  </script>
+  {% endblock scripts %}
 
   {% endblock content %}
