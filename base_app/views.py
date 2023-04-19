@@ -20,10 +20,6 @@ environ.Env.read_env()
 
 
 # Create your views here.
-# def post_to_slack(message):
-#     client = s.WebClient(token=os.environ("SLACK_BOT_TOKEN"))
-#     client.chat_postMessage(channel=os.environ("SLACK_CHANNEL_ID"), text=message)
-#     webhook_url=os.environ("SLACK_WEBHOOK")
 
 def post_notification_to_slack(message):
     webhook_url=env("SLACK_WEBHOOK")
@@ -47,6 +43,11 @@ def loginPage(request):
     """Renders login page"""
     page = "login"
 
+    demo_user = env("DEMO_USER")
+    demo_user_password = env("DEMO_USER_PASSWORD")
+
+    context = {"demo_user": demo_user, "demo_user_password": demo_user_password,}
+
     if request.user.is_authenticated:
         return redirect("user_tickets")
     
@@ -68,7 +69,7 @@ def loginPage(request):
         else:
             messages.error(request, "Username or password is incorrect.")
 
-    return render(request, 'login_register.html')
+    return render(request, 'login_register.html', context)
 
 """Returns user to login page after logging out"""
 def logoutPage(request):
