@@ -8,8 +8,9 @@
   <p>Using weather data from the National Weather Service API as a "lorem ipsum" for technical data: you can copy technical information and submit it along with your ticket.</p>
   </div>
 </div>
-  <button class="btn btn-secondary" onclick="CopyText()">Copy Tech Data to Clipboard</button>
+
      <textarea style="text-align:center;" value="{{ tech_info }}"id="yourtext"></textarea>
+     <button class="btn btn-secondary" onclick="CopyText()">Copy Tech Data to Clipboard</button>
     <form method="POST">
       {% csrf_token %}
       {{ ticket_form.as_p }}
