@@ -9,7 +9,7 @@
   </div>
 </div>
   <button class="btn btn-secondary" onclick="CopyText()">Copy Tech Data to Clipboard</button>
-     <input style="text-align:center;" type="text-" value="{{ tech_info }}"id="yourtext">
+     <textarea style="text-align:center;" value="{{ tech_info }}"id="yourtext">
     <form method="POST">
       {% csrf_token %}
       {{ ticket_form.as_p }}
