@@ -5,21 +5,41 @@
 <div class="container">
   <div class="container card w-50 p-3">
     <div class="card-body card text-white bg-secondary mb-3">
-  <p>Using weather data from the National Weather Service API as a "lorem ipsum" for technical data: you can copy technical information and submit it along with your ticket.</p>
-  <p>Additionally posts text of ticket to Slack channel for support staff so they can prioritize issues as they come in without having to log in to the app.</p>
+  <p>Weather data from the National Weather Service API is a "lorem ipsum" for technical data. You can copy technical information to clipboard and submit it along with your ticket.</p>
+  <p>This app posts the text of your ticket to a Slack channel for support staff so they can prioritize issues as they come in without having to log in to the app.</p>
   </div>
 </div>
 
-     <textarea id="yourtext">{{ tech_info }}</textarea>
-     <button class="btn btn-secondary" onclick="CopyText()">Copy Tech Data to Clipboard</button>
-    <form method="POST">
+<div class="col d-flex">
+  <div class="col-sm-6">
+  <div class="card shadow-2-strong" style="border-radius: 1rem;">
+  <div class="card-body p-5">
+<textarea class="w-50 p-3" id="yourtext">{{ tech_info }}</textarea><br>
+<button class="btn btn-secondary" onclick="CopyText()">Copy Tech Data to Clipboard</button>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="col d-flex">
+  <div class="col-sm-6">
+  <div class="card shadow-2-strong" style="border-radius: 1rem;">
+  <div class="card-body p-5">
+
+     
+     <form method="POST">
       {% csrf_token %}
       {{ ticket_form.as_p }}
 
       <input type="submit">
     </form>  
 
-    
+  </div>
+</div>
+</div>
+</div>
   </div>
 
   {% block scripts %}

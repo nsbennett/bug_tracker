@@ -43,11 +43,6 @@ def loginPage(request):
     """Renders login page"""
     page = "login"
 
-    demo_user = env("DEMO_USER")
-    demo_user_password = env("DEMO_USER_PASSWORD")
-
-    context = {"demo_user": demo_user, "demo_user_password": demo_user_password,}
-
     if request.user.is_authenticated:
         return redirect("user_tickets")
     
@@ -69,7 +64,7 @@ def loginPage(request):
         else:
             messages.error(request, "Username or password is incorrect.")
 
-    return render(request, 'login_register.html', context)
+    return render(request, 'login_register.html')
 
 """Returns user to login page after logging out"""
 def logoutPage(request):
@@ -237,3 +232,16 @@ def userProfile(request):
         "profile_form": profile_form,
     }
     return render(request, "profile_page.html", context)
+
+
+def oneClickDemoLogin(request):
+    demo_user = env("DEMO_USER")
+    demo_user_password = env("DEMO_USER_PASSWORD")
+    thingie = User.objects.get(username=demo_user)
+    # user = authenticate(request, username=demo_user, password=demo_user_password)
+    login(request, thingie)
+    tickets = CreateTicket.objects.filter(ticket_author=request.user.id)
+    context = {
+        "tickets": tickets,
+    }
+    return render(request, "view_tickets.html", context)
