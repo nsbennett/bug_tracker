@@ -1,7 +1,7 @@
 import requests
 import json
 
-
+# Accesses National Weather Service API for "submit new ticket" page
 def give_info():
     wy_weather = requests.get("https://api.weather.gov/gridpoints/RIW/105,86/forecast")
     information = wy_weather.json()

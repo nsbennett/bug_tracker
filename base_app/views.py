@@ -189,6 +189,7 @@ def ticket_detailed_view(request, pk):
     return render(request, "view_single_ticket.html", context)
 
 
+# Allows view of tickets in development account without requiring login
 def view_development(request):
     """Provide a public-facing look at feature requests and completion status, no login required"""
     tickets = CreateTicket.objects.filter(ticket_author=9)
@@ -199,6 +200,7 @@ def view_development(request):
     return render(request, "view_development.html", context)
 
 
+# View specific development ticket
 def view_dev_detail(request, pk):
     """Extension of view of development, but for specific features"""
     ticket = CreateTicket.objects.get(entry_id=pk)
@@ -212,6 +214,7 @@ def view_dev_detail(request, pk):
     return render(request, "view_dev_details.html", context)
 
 
+# Allows modification of user profile information
 @login_required(login_url="login_page")
 @transaction.atomic
 def userProfile(request):
@@ -234,6 +237,7 @@ def userProfile(request):
     return render(request, "profile_page.html", context)
 
 
+# Creates the demo user login button on the home page
 def oneClickDemoLogin(request):
     demo_user = env("DEMO_USER")
     demo_user_password = env("DEMO_USER_PASSWORD")
